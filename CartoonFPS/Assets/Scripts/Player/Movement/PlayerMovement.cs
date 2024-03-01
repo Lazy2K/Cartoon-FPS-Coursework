@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeedCap;
     public float mouseSensitivity;
     public float groundDrag;
+    public float jumpForce;
     [Header("Ground Checking")]
     public LayerMask ground;
     public float playerBodyHeight;
@@ -72,6 +73,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 limitedVelocity = flatVelocity.normalized * moveSpeedCap;
             rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+        }
+
+        if(Input.GetKey("space") && isGrounded)
+        {
+            rb.AddForce(transform.up.normalized * jumpForce, ForceMode.Force);
         }
 
     }
