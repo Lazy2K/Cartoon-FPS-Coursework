@@ -17,12 +17,8 @@ public class AnimationController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            animator.SetBool("Hit", true);
+            animator.SetTrigger("TakeDamage");
         }
 
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            animator.SetBool("Hit", false);
-        }
     }
 }
