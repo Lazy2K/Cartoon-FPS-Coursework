@@ -14,9 +14,12 @@ public class GenericWeapon : MonoBehaviour
     // Private variables
     private float timeDelay;
 
+    // Camera for raycasting
+    private GameObject playerCamera;
+
     void Start()
     {
-        
+        playerCamera = GameObject.Find("Main Camera");
     }
 
     public void shoot()
@@ -27,6 +30,12 @@ public class GenericWeapon : MonoBehaviour
             // Shoot
             muzzleFlash.Play();
             timeDelay = Time.time + (1 / firePerSecond);
+
+            RaycastHit hit;
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 100f))
+            {
+                Debug.Log(hit.transform.name);
+            }
         }
     }
 }
