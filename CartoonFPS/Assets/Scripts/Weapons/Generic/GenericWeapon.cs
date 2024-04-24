@@ -37,7 +37,10 @@ public class GenericWeapon : MonoBehaviour
             timeDelay = Time.time + (1 / firePerSecond);
 
             RaycastHit hit;
-            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 100f))
+            Vector3 targetVector = playerCamera.transform.forward;
+            targetVector += transform.up * Random.Range(0.01f, -0.01f);
+            targetVector += transform.right * Random.Range(0.01f, -0.01f);
+            if (Physics.Raycast(playerCamera.transform.position, targetVector, out hit, 500f))
             {
                 // Debug.Log(hit.transform.name);
                 GenericEnemyController enemy = hit.transform.GetComponent<GenericEnemyController>();

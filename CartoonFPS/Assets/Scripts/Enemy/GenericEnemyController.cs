@@ -22,12 +22,12 @@ public class GenericEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void TakeDamge(float amount)
     {
-        
+
         health = health - amount;
         if (health <= 0f)
         {
@@ -42,5 +42,20 @@ public class GenericEnemyController : MonoBehaviour
     void Die()
     {
         animator.SetBool("Dead", true);
+    }
+
+    void Patrol()
+    {
+
+    }
+
+    void Chase()
+    {
+
+    }
+
+    void Attack()
+    {
+
     }
 }
