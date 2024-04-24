@@ -10,6 +10,8 @@ public class GenericWeapon : MonoBehaviour
     [Header("Weapon Characteristics")]
     public bool isFullAuto;
     public float firePerSecond;
+    public float damage = 40f;
+    public GameObject impactEffect;
 
     // Private variables
     private float timeDelay;
@@ -34,7 +36,15 @@ public class GenericWeapon : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 100f))
             {
-                Debug.Log(hit.transform.name);
+                // Debug.Log(hit.transform.name);
+                GenericEnemyController enemy = hit.transform.GetComponent<GenericEnemyController>();
+                if(enemy != null)
+                {
+                    enemy.TakeDamge(damage);
+                }
+
+                GameObject impactGameObject = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactGameObject, 2f);
             }
         }
     }

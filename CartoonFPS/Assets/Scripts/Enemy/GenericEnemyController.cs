@@ -22,9 +22,25 @@ public class GenericEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        
+    }
+
+    public void TakeDamge(float amount)
+    {
+        
+        health = health - amount;
+        if (health <= 0f)
         {
+            Die();
+        } else
+        {
+            // Enemy is alive
             animator.SetTrigger("TakeDamage");
         }
+    }
+
+    void Die()
+    {
+        animator.SetBool("Dead", true);
     }
 }
