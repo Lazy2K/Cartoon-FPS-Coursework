@@ -12,6 +12,7 @@ public class GenericWeapon : MonoBehaviour
     public float firePerSecond;
     public float damage = 40f;
     public GameObject impactEffect;
+    public AudioSource audioSource;
 
     // Private variables
     private float timeDelay;
@@ -22,6 +23,7 @@ public class GenericWeapon : MonoBehaviour
     void Start()
     {
         playerCamera = GameObject.Find("Main Camera");
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public void shoot()
@@ -31,6 +33,7 @@ public class GenericWeapon : MonoBehaviour
         {
             // Shoot
             muzzleFlash.Play();
+            audioSource.Play();
             timeDelay = Time.time + (1 / firePerSecond);
 
             RaycastHit hit;
