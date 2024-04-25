@@ -7,6 +7,8 @@ public class PlayerInteractions : MonoBehaviour
     private GameObject weaponHolder;
     private GameObject weapon;
     private GenericWeapon weaponScript;
+
+    public GameObject grenade;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +19,19 @@ public class PlayerInteractions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0))
+
+        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12);
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        if (Input.GetMouseButton(0))
         {
             weaponScript.shoot();
+        }
+
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            GameObject grenadeObject = Instantiate(grenade, weapon.transform.position, Quaternion.identity);
+            grenadeObject.GetComponent<Rigidbody>().AddForce((transform.forward) * 10f);
         }
     }
 

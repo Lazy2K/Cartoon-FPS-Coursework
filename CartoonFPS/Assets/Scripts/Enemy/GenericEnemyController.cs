@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GenericEnemyController : MonoBehaviour
 {
@@ -9,20 +10,25 @@ public class GenericEnemyController : MonoBehaviour
     public float startHealth;
     private float health;
 
+    public NavMeshAgent agent;
+
     // Animation variables
     private Animator animator;
+
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
         health = startHealth;
         animator = gameObject.GetComponent<Animator>();
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        agent.SetDestination(player.transform.position);
     }
 
     public void TakeDamge(float amount)
