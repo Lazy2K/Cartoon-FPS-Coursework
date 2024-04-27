@@ -10,12 +10,20 @@ public class GenericEnemyController : MonoBehaviour
     public float startHealth;
     private float health;
 
+    public float sightRange;
+    public float attackRange;
+
     public NavMeshAgent agent;
 
     // Animation variables
     private Animator animator;
 
     private GameObject player;
+    public LayerMask whatIsPlayer;
+
+    private bool playerInSight, playerInAttack;
+
+    private Vector3 walkPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +36,12 @@ public class GenericEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(player.transform.position);
+        playerInSight = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInAttack = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+        if (!playerInSight && !playerInAttack && health > 0) Patrol();
+        if (playerInSight && !playerInAttack && health > 0) Chase();
+        if (playerInSight && playerInAttack && health > 0) Attack();
     }
 
     public void TakeDamge(float amount)
@@ -47,21 +60,34 @@ public class GenericEnemyController : MonoBehaviour
 
     void Die()
     {
+        agent.SetDestination(transform.position);
+        animator.SetBool("Shooting", false);
         animator.SetBool("Dead", true);
+
     }
 
     void Patrol()
     {
-
+        // Find patrol routes that arent already being patrolled
     }
 
     void Chase()
     {
-
+        agent.SetDestination(player.transform.position);
     }
 
     void Attack()
     {
+        agent.SetDestination(transform.position);
+        transform.LookAt(player.transform);
 
+        animator.SetBool("Shooting", true);
+
+        // Attack the player
+    }
+
+    void SearchWalkPoint()
+    {
+        // Function for finding patrol paths
     }
 }
