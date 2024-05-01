@@ -13,6 +13,8 @@ public class GenericEnemyController : MonoBehaviour
     public float sightRange;
     public float attackRange;
 
+    public GameObject muzzelFlash;
+
     public NavMeshAgent agent;
 
     // Animation variables
