@@ -13,7 +13,7 @@ public class GenericEnemyController : MonoBehaviour
     public float sightRange;
     public float attackRange;
 
-    public GameObject muzzelFlash;
+    public ParticleSystem muzzelFlash;
 
     public NavMeshAgent agent;
 
@@ -27,12 +27,16 @@ public class GenericEnemyController : MonoBehaviour
 
     private Vector3 walkPoint;
 
+    private float timeDelay;
+    public float firePerSecond;
+
     // Start is called before the first frame update
     void Start()
     {
         health = startHealth;
         animator = gameObject.GetComponent<Animator>();
         player = GameObject.Find("Player");
+
     }
 
     // Update is called once per frame
@@ -84,6 +88,7 @@ public class GenericEnemyController : MonoBehaviour
         transform.LookAt(player.transform);
 
         animator.SetBool("Shooting", true);
+        Shoot();
 
         // Attack the player
     }
@@ -91,5 +96,15 @@ public class GenericEnemyController : MonoBehaviour
     void SearchWalkPoint()
     {
         // Function for finding patrol paths
+    }
+
+    void Shoot()
+    {
+        if (Time.time > timeDelay)
+        {
+            // Shoot here
+            timeDelay = Time.time + (1 / firePerSecond);
+            muzzelFlash.Play();
+        }
     }
 }
