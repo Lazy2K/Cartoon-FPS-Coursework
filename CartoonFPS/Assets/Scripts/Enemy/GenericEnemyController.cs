@@ -30,13 +30,14 @@ public class GenericEnemyController : MonoBehaviour
     private float timeDelay;
     public float firePerSecond;
 
+    public GameObject muzzelGameObj;
+
     // Start is called before the first frame update
     void Start()
     {
         health = startHealth;
         animator = gameObject.GetComponent<Animator>();
         player = GameObject.Find("Player");
-
     }
 
     // Update is called once per frame
@@ -100,11 +101,26 @@ public class GenericEnemyController : MonoBehaviour
 
     void Shoot()
     {
+        RaycastHit hit;
+        Vector3 targetVector = muzzelGameObj.transform.forward;
+        targetVector += transform.up * Random.Range(0.01f, -0.01f);
+        targetVector += transform.right * Random.Range(0.01f, -0.01f);
         if (Time.time > timeDelay)
         {
             // Shoot here
             timeDelay = Time.time + (1 / firePerSecond);
             muzzelFlash.Play();
+            if (Physics.Raycast(muzzelGameObj.transform.position, targetVector, out hit, 500f))
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                if(hit.collider.gameObject.name == "Player")
+                {
+                    // Player take damge and assosiated sounds and animations
+                } else
+                {
+                    // Play near miss or bullet impact effects on rock/ground
+                }
+            }
         }
     }
 }
