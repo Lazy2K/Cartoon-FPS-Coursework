@@ -32,6 +32,8 @@ public class GenericEnemyController : MonoBehaviour
 
     public GameObject muzzelGameObj;
 
+    private PlayerInteractions playerScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -103,7 +105,7 @@ public class GenericEnemyController : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 targetVector = muzzelGameObj.transform.forward;
-        targetVector += transform.up * Random.Range(0.01f, -0.01f);
+        targetVector += transform.up * Random.Range(0.01f, -0.1f);
         targetVector += transform.right * Random.Range(0.01f, -0.01f);
         if (Time.time > timeDelay)
         {
@@ -116,6 +118,8 @@ public class GenericEnemyController : MonoBehaviour
                 if(hit.collider.gameObject.name == "Player")
                 {
                     // Player take damge and assosiated sounds and animations
+                    playerScript = hit.collider.gameObject.GetComponent<PlayerInteractions>();
+                    playerScript.TakeDamage();
                 } else
                 {
                     // Play near miss or bullet impact effects on rock/ground

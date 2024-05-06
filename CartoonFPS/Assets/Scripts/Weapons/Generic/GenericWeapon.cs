@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GenericWeapon : MonoBehaviour
 {
@@ -10,9 +11,13 @@ public class GenericWeapon : MonoBehaviour
     [Header("Weapon Characteristics")]
     public bool isFullAuto;
     public float firePerSecond;
+    public int bulletPerMag;
     public float damage = 40f;
     public GameObject impactEffect;
     public AudioSource audioSource;
+
+    private int currentBullets;
+    private TMP_Text bulletText;
 
     // Private variables
     private float timeDelay;
@@ -24,17 +29,22 @@ public class GenericWeapon : MonoBehaviour
     {
         playerCamera = GameObject.Find("Main Camera");
         audioSource = gameObject.GetComponent<AudioSource>();
+        bulletText = GameObject.Find("BulletsText").GetComponent<TextMeshProUGUI>();
+        bulletText.text = bulletPerMag + "/" + bulletPerMag;
+        currentBullets = bulletPerMag;
     }
 
     public void shoot()
     {
         
-        if(Time.time > timeDelay)
+        if(Time.time > timeDelay && currentBullets > 0)
         {
             // Shoot
             muzzleFlash.Play();
             audioSource.Play();
             timeDelay = Time.time + (1 / firePerSecond);
+
+
 
             RaycastHit hit;
             Vector3 targetVector = playerCamera.transform.forward;
@@ -52,6 +62,17 @@ public class GenericWeapon : MonoBehaviour
                 GameObject impactGameObject = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(impactGameObject, 2f);
             }
+
+            currentBullets -= 1;
+            bulletText.text = currentBullets + "/" + bulletPerMag;
         }
+    }
+
+    public void reload()
+    {
+        // Play reload sound and maybe animation
+        // Refil current bullets to bullets per mag
+        currentBullets = bulletPerMag;
+        bulletText.text = currentBullets + "/" + bulletPerMag;
     }
 }
