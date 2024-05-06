@@ -5092,6 +5092,7 @@ MonoBehaviour:
   damage: 40
   impactEffect: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
   audioSource: {fileID: 0}
+  weaponInnacuracy: 0.01
 --- !u!82 &8388389170846583773
 AudioSource:
   m_ObjectHideFlags: 0

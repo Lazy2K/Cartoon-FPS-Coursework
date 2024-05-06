@@ -34,12 +34,15 @@ public class GenericEnemyController : MonoBehaviour
 
     private PlayerInteractions playerScript;
 
+    public bool isAlive;
+
     // Start is called before the first frame update
     void Start()
     {
         health = startHealth;
         animator = gameObject.GetComponent<Animator>();
         player = GameObject.Find("Player");
+        isAlive = true;
     }
 
     // Update is called once per frame
@@ -72,6 +75,7 @@ public class GenericEnemyController : MonoBehaviour
         agent.SetDestination(transform.position);
         animator.SetBool("Shooting", false);
         animator.SetBool("Dead", true);
+        isAlive = false;
 
     }
 

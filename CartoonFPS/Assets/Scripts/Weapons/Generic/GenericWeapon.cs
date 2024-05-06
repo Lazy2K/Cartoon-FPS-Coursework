@@ -16,6 +16,8 @@ public class GenericWeapon : MonoBehaviour
     public GameObject impactEffect;
     public AudioSource audioSource;
 
+    public float weaponInnacuracy;
+
     private int currentBullets;
     private TMP_Text bulletText;
 
@@ -48,8 +50,8 @@ public class GenericWeapon : MonoBehaviour
 
             RaycastHit hit;
             Vector3 targetVector = playerCamera.transform.forward;
-            targetVector += transform.up * Random.Range(0.01f, -0.01f);
-            targetVector += transform.right * Random.Range(0.01f, -0.01f);
+            targetVector += transform.up * Random.Range(weaponInnacuracy, -weaponInnacuracy);
+            targetVector += transform.right * Random.Range(weaponInnacuracy, -weaponInnacuracy);
             if (Physics.Raycast(playerCamera.transform.position, targetVector, out hit, 500f))
             {
                 // Debug.Log(hit.transform.name);
