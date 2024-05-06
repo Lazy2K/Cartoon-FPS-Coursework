@@ -12,16 +12,24 @@ public class PlayerInteractions : MonoBehaviour
 
     private TMP_Text healthText;
 
+    // Camera for raycasting
+    private GameObject playerCamera;
+
+    private int weaponLayer;
 
 
     public GameObject grenade;
     // Start is called before the first frame update
     void Start()
     {
+        playerCamera = GameObject.Find("Main Camera");
         weaponHolder = GameObject.Find("WeaponHolder");
         getCurrentWeapon();
+        weapon.GetComponent<Rigidbody>().isKinematic = true; // Dissable physics on currently heald weapon
+        Physics.IgnoreCollision(weapon.GetComponent<Collider>(), GetComponent<Collider>());
         health = 1000;
         healthText = GameObject.Find("HealthPoints").GetComponent<TextMeshProUGUI>();
+        weaponLayer = LayerMask.NameToLayer("Weapon");
     }
 
     // Update is called once per frame
@@ -47,6 +55,11 @@ public class PlayerInteractions : MonoBehaviour
             weaponScript.reload();
         }
 
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            tryGetWeapon();
+        }
+
     }
 
     private void getCurrentWeapon()
@@ -60,5 +73,33 @@ public class PlayerInteractions : MonoBehaviour
         Debug.Log(health);
         health -= 100;
         healthText.text = health + "HP";
+    }
+
+    private void tryGetWeapon()
+    {
+        RaycastHit hit;
+        Vector3 targetVector = playerCamera.transform.forward;
+        if (Physics.Raycast(playerCamera.transform.position, targetVector, out hit, 5f))
+        {
+            Debug.Log(hit.collider.gameObject.name);
+            if(hit.collider.gameObject.layer == weaponLayer)
+            {
+                // Found a weapon that wants to be taken
+                weapon.transform.SetParent(null, true);
+                weapon.GetComponent<Rigidbody>().isKinematic = false;
+                // Unparent and drop current weapon
+                // Parent new weapon and move it to local vector 0,0,0 with correct rotation
+                hit.collider.gameObject.transform.SetParent(weaponHolder.transform);
+                getCurrentWeapon();
+                Physics.IgnoreCollision(weapon.GetComponent<Collider>(), GetComponent<Collider>());
+                weapon.GetComponent<Rigidbody>().isKinematic = true;
+                weapon.transform.localPosition = new Vector3(0, 0, 0);
+                weapon.transform.localRotation = Quaternion.identity;
+                weapon.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
+
+
+
+            }
+        }
     }
 }
