@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     // Private components
     private Rigidbody rb;
 
+    private PlayerInteractions interactionScript;
+
 
     void Start()
     {
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        interactionScript = gameObject.GetComponent<PlayerInteractions>();
     }
 
     // Update is called once per frame
@@ -62,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = transform.forward * Input.GetAxisRaw("Vertical") + transform.right * Input.GetAxisRaw("Horizontal");
 
         // Apply movement force if player is touching the ground
-        if (isGrounded)
+        if (isGrounded && !interactionScript.isDead)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
         }
@@ -75,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
         }
 
-        if(Input.GetKey("space") && isGrounded)
+        if (Input.GetKey("space") && isGrounded && !interactionScript.isDead)
         {
             rb.AddForce(transform.up.normalized * jumpForce, ForceMode.Force);
         }

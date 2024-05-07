@@ -10,6 +10,11 @@ public class PlayerInteractions : MonoBehaviour
     private GenericWeapon weaponScript;
     private float health;
 
+    public bool isDead;
+
+    private GameObject hud;
+    private GameObject deadScreen;
+
     private TMP_Text healthText;
 
     // Camera for raycasting
@@ -30,6 +35,10 @@ public class PlayerInteractions : MonoBehaviour
         health = 1000;
         healthText = GameObject.Find("HealthPoints").GetComponent<TextMeshProUGUI>();
         weaponLayer = LayerMask.NameToLayer("Weapon");
+        isDead = false;
+        hud = GameObject.Find("PlayerHUD");
+        deadScreen = GameObject.Find("DeathHUD");
+        deadScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,7 +48,7 @@ public class PlayerInteractions : MonoBehaviour
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12);
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !isDead)
         {
             weaponScript.shoot();
         }
@@ -60,6 +69,22 @@ public class PlayerInteractions : MonoBehaviour
             tryGetWeapon();
         }
 
+        checkIsDead();
+
+    }
+
+    private void checkIsDead()
+    {
+        if(health <= 0)
+        {
+            // Player is dead so do the things that need to be done
+            // Hide hud
+            // Dissable player input
+            // Show death screen
+            isDead = true;
+            hud.SetActive(false);
+            deadScreen.SetActive(true);
+        }
     }
 
     private void getCurrentWeapon()
