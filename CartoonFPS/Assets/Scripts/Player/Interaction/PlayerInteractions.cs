@@ -10,6 +10,12 @@ public class PlayerInteractions : MonoBehaviour
     private GenericWeapon weaponScript;
     private float health;
 
+    public AudioClip playerGruntSFX;
+    public AudioClip fleshHitSFX;
+    public AudioClip bulletNearMissSFX;
+
+    public AudioSource audioSource;
+
     public bool isDead;
 
     private GameObject hud;
@@ -39,6 +45,8 @@ public class PlayerInteractions : MonoBehaviour
         hud = GameObject.Find("PlayerHUD");
         deadScreen = GameObject.Find("DeathHUD");
         deadScreen.SetActive(false);
+
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -98,6 +106,8 @@ public class PlayerInteractions : MonoBehaviour
         Debug.Log(health);
         health -= 100;
         healthText.text = health + "HP";
+        audioSource.PlayOneShot(fleshHitSFX, 1f);
+        audioSource.PlayOneShot(playerGruntSFX, 1f);
     }
 
     private void tryGetWeapon()

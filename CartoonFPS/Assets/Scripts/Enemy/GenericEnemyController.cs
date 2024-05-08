@@ -36,6 +36,9 @@ public class GenericEnemyController : MonoBehaviour
 
     public bool isAlive;
 
+    private AudioSource audioSource;
+    public AudioClip nearMissSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +46,7 @@ public class GenericEnemyController : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         player = GameObject.Find("Player");
         isAlive = true;
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -123,10 +127,12 @@ public class GenericEnemyController : MonoBehaviour
                 {
                     // Player take damge and assosiated sounds and animations
                     playerScript = hit.collider.gameObject.GetComponent<PlayerInteractions>();
+                    audioSource.PlayOneShot(nearMissSFX, 1f);
                     playerScript.TakeDamage();
                 } else
                 {
                     // Play near miss or bullet impact effects on rock/ground
+                    audioSource.PlayOneShot(nearMissSFX, 1f);
                 }
             }
         }
