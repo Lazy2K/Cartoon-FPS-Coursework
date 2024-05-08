@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerInteractions : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class PlayerInteractions : MonoBehaviour
     private GameObject weapon;
     private GenericWeapon weaponScript;
     private float health;
+
+    private PostProcessVolume fxVolume;
+    private Vignette fxVignette;
+    private float vignetteIntensity;
 
     public AudioClip playerGruntSFX;
     public AudioClip fleshHitSFX;
@@ -47,6 +52,18 @@ public class PlayerInteractions : MonoBehaviour
         deadScreen.SetActive(false);
 
         audioSource = gameObject.GetComponent<AudioSource>();
+
+        fxVolume = GameObject.Find("CameraEffects").GetComponent<PostProcessVolume>();
+        fxVolume.profile.TryGetSettings<Vignette>(out fxVignette);
+
+        if(!fxVignette)
+        {
+            Debug.Log("Error getting vinitee");
+        }
+
+        vignetteIntensity = 0f;
+        fxVignette.enabled.Override(true);
+        fxVignette.intensity.Override(vignetteIntensity);
     }
 
     // Update is called once per frame
@@ -78,7 +95,8 @@ public class PlayerInteractions : MonoBehaviour
         }
 
         checkIsDead();
-
+        StartCoroutine(runDamageEffect());
+        fxVignette.intensity.Override(vignetteIntensity);
     }
 
     private void checkIsDead()
@@ -108,6 +126,7 @@ public class PlayerInteractions : MonoBehaviour
         healthText.text = health + "HP";
         audioSource.PlayOneShot(fleshHitSFX, 1f);
         audioSource.PlayOneShot(playerGruntSFX, 1f);
+        vignetteIntensity = 1f;
     }
 
     private void tryGetWeapon()
@@ -137,4 +156,16 @@ public class PlayerInteractions : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator runDamageEffect()
+    {
+        while(vignetteIntensity > 0)
+        {
+            vignetteIntensity -= 0.01f;
+            if (vignetteIntensity < 0) vignetteIntensity = 0;
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield break;
+    }
+
 }
