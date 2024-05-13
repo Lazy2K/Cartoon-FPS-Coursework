@@ -16,7 +16,6 @@ public class MainMenuBehaviour : MonoBehaviour
         MainMenu = GameObject.Find("MainMenu");
         OptionsMenu = GameObject.Find("OptionsMenu");
         MissionMenu = GameObject.Find("MissionMenu");
-        MissionBrief = GameObject.Find("MissionBrief");
 
         // Ensure the main menu is the first to be seen
         DisplayMainMenu();
@@ -28,7 +27,6 @@ public class MainMenuBehaviour : MonoBehaviour
         // Ensure all other menus are hidden
         MainMenu.SetActive(false);
         MissionMenu.SetActive(false);
-        MissionBrief.SetActive(false);
         // Display main menu
         OptionsMenu.SetActive(true);
     }
@@ -37,7 +35,6 @@ public class MainMenuBehaviour : MonoBehaviour
         // Ensure all other menus are hidden
         OptionsMenu.SetActive(false);
         MissionMenu.SetActive(false);
-        MissionBrief.SetActive(false);
         // Display main menu
         MainMenu.SetActive(true);
     }
@@ -46,27 +43,22 @@ public class MainMenuBehaviour : MonoBehaviour
         // Ensure all other menus are hidden
         OptionsMenu.SetActive(false);
         MainMenu.SetActive(false);
-        MissionBrief.SetActive(false);
         // Display the mission select menu
         MissionMenu.SetActive(true);
     }
 
     public void DisplayMissionBrief(int mission) {
-        // Ensure all other menus are hidden
-        OptionsMenu.SetActive(false);
-        MainMenu.SetActive(false);
-        MissionMenu.SetActive(false);
-        // Display the general mission brief
-        MissionBrief.SetActive(true);
+        if(mission == 1)
+        {
+            SceneManager.LoadScene("Brief01", LoadSceneMode.Single);
+        }
+        if (mission == 2)
+        {
+            SceneManager.LoadScene("Brief02", LoadSceneMode.Single);
+        }
+        if (mission == 3)
+        {
+            SceneManager.LoadScene("Brief03", LoadSceneMode.Single);
+        }
     }
-
-    public void LoadMission01() {
-        SceneManager.LoadScene("Mission01-02", LoadSceneMode.Single);
-    }
-    public void LoadMission02() {
-        SceneManager.LoadScene("Mission02", LoadSceneMode.Single);
-    }
-    public void LoadMission03() { }
-
-
 }
