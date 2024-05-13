@@ -1920,7 +1920,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Search for the ToonTyrant
+  m_text: '- Locate and retrieve the intel
 
     - Elimiate all enemy resistance'
   m_isRightToLeft: 0

@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     private PlayerInteractions interactionScript;
+    private MissionController missionControl;
 
 
     void Start()
@@ -36,26 +37,31 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         interactionScript = gameObject.GetComponent<PlayerInteractions>();
+        missionControl = GameObject.Find("MissionController").GetComponent<MissionController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Mouse movement
-        transform.Rotate(0f,Input.GetAxis("Mouse X"),0f);  // Rotate the player object to maintain forwards direction
-        cameraRotation.y += Input.GetAxis("Mouse X");      // Update camera Y rotation to maintatin forwards view
-        cameraRotation.x += Input.GetAxis("Mouse Y") * -1; // Update camera X rotation based on mouse movement
-        cameraRotation.x = Mathf.Clamp(cameraRotation.x, - 80f, 80f); // Clamp X rotation to prevent weird angles
-        viewCamera.transform.eulerAngles = (Vector2)cameraRotation * mouseSensitivity; // Apply camera rotations
+        if (missionControl.gameInPlay)
+        {
+            // Mouse movement
+            transform.Rotate(0f, Input.GetAxis("Mouse X"), 0f);  // Rotate the player object to maintain forwards direction
+            cameraRotation.y += Input.GetAxis("Mouse X");      // Update camera Y rotation to maintatin forwards view
+            cameraRotation.x += Input.GetAxis("Mouse Y") * -1; // Update camera X rotation based on mouse movement
+            cameraRotation.x = Mathf.Clamp(cameraRotation.x, -80f, 80f); // Clamp X rotation to prevent weird angles
+            viewCamera.transform.eulerAngles = (Vector2)cameraRotation * mouseSensitivity; // Apply camera rotations
 
-        // Body movement
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerBodyHeight * 0.5f + groundReach, ground); // Check if the player is touching the ground
-        if(isGrounded)
-        {
-            rb.drag = groundDrag;
-        } else
-        {
-            rb.drag = 0;
+            // Body movement
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, playerBodyHeight * 0.5f + groundReach, ground); // Check if the player is touching the ground
+            if (isGrounded)
+            {
+                rb.drag = groundDrag;
+            }
+            else
+            {
+                rb.drag = 0;
+            }
         }
     }
 
@@ -65,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = transform.forward * Input.GetAxisRaw("Vertical") + transform.right * Input.GetAxisRaw("Horizontal");
 
         // Apply movement force if player is touching the ground
-        if (isGrounded && !interactionScript.isDead)
+        if (isGrounded && !interactionScript.isDead && missionControl.gameInPlay)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
         }
@@ -78,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
         }
 
-        if (Input.GetKey("space") && isGrounded && !interactionScript.isDead)
+        if (Input.GetKey("space") && isGrounded && !interactionScript.isDead && missionControl.gameInPlay)
         {
             rb.AddForce(transform.up.normalized * jumpForce, ForceMode.Force);
         }

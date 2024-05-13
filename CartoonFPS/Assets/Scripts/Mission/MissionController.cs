@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class MissionController : MonoBehaviour
 {
     private Scene currentScene;
+    private GameObject winScreen;
+
+    public bool gameInPlay;
 
     private GameObject[] enemies;
 
@@ -14,6 +17,9 @@ public class MissionController : MonoBehaviour
     {
         currentScene = SceneManager.GetActiveScene();
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        winScreen = GameObject.Find("WinHUD");
+        winScreen.SetActive(false);
+        gameInPlay = true;
     }
 
     // Update is called once per frame
@@ -24,7 +30,10 @@ public class MissionController : MonoBehaviour
             if(mission01objectives())
             {
                 // Mission complete
-                Debug.Log("All enemies dead");
+                gameInPlay = false;
+                winScreen.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
             }
         }
     }
@@ -50,5 +59,36 @@ public class MissionController : MonoBehaviour
     private bool mission03objectives()
     {
         return false;
+    }
+
+    public void restartMission()
+    {
+        if(currentScene.name == "Mission01-02") {
+            SceneManager.LoadScene("Mission01-02", LoadSceneMode.Single);
+        }
+        if (currentScene.name == "Mission02")
+        {
+            SceneManager.LoadScene("Mission02", LoadSceneMode.Single);
+        }
+        if (currentScene.name == "Mission03")
+        {
+            SceneManager.LoadScene("Mission03", LoadSceneMode.Single);
+        }
+    }
+
+    public void nextMission()
+    {
+        if (currentScene.name == "Mission01-02")
+        {
+            SceneManager.LoadScene("Mission01-02", LoadSceneMode.Single);
+        }
+        if (currentScene.name == "Mission02")
+        {
+            SceneManager.LoadScene("Mission02", LoadSceneMode.Single);
+        }
+        if (currentScene.name == "Mission03")
+        {
+            SceneManager.LoadScene("Mission03", LoadSceneMode.Single);
+        }
     }
 }

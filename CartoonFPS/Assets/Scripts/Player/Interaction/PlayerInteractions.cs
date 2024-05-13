@@ -33,6 +33,8 @@ public class PlayerInteractions : MonoBehaviour
 
     private int weaponLayer;
 
+    private MissionController missionControl;
+
 
     public GameObject grenade;
     // Start is called before the first frame update
@@ -56,6 +58,8 @@ public class PlayerInteractions : MonoBehaviour
         fxVolume = GameObject.Find("CameraEffects").GetComponent<PostProcessVolume>();
         fxVolume.profile.TryGetSettings<Vignette>(out fxVignette);
 
+        missionControl = GameObject.Find("MissionController").GetComponent<MissionController>();
+
         if(!fxVignette)
         {
             Debug.Log("Error getting vinitee");
@@ -73,7 +77,7 @@ public class PlayerInteractions : MonoBehaviour
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12);
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        if (Input.GetMouseButton(0) && !isDead)
+        if (Input.GetMouseButton(0) && !isDead && missionControl.gameInPlay)
         {
             weaponScript.shoot();
         }
@@ -110,6 +114,9 @@ public class PlayerInteractions : MonoBehaviour
             isDead = true;
             hud.SetActive(false);
             deadScreen.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            missionControl.gameInPlay = false;
         }
     }
 
