@@ -78,6 +78,7 @@ public class GenericEnemyController : MonoBehaviour
     {
         agent.SetDestination(transform.position);
         animator.SetBool("Shooting", false);
+        animator.SetBool("isRunning", false);
         animator.SetBool("Dead", true);
         isAlive = false;
 
@@ -86,18 +87,30 @@ public class GenericEnemyController : MonoBehaviour
     void Patrol()
     {
         // Find patrol routes that arent already being patrolled
+        if (animator.GetBool("isRunning"))
+        {
+            animator.SetBool("isRunning", false);
+        } else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     void Chase()
     {
         agent.SetDestination(player.transform.position);
+        animator.SetBool("Shooting", false);
+        if(!animator.GetBool("isRunning"))
+        {
+            animator.SetBool("isRunning", true);
+        }
     }
 
     void Attack()
     {
         agent.SetDestination(transform.position);
         transform.LookAt(player.transform);
-
+        animator.SetBool("isRunning", false);
         animator.SetBool("Shooting", true);
         Shoot();
 

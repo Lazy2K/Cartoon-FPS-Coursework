@@ -80,15 +80,15 @@ public class MissionController : MonoBehaviour
     {
         if (currentScene.name == "Mission01-02")
         {
-            SceneManager.LoadScene("Mission01-02", LoadSceneMode.Single);
+            SceneManager.LoadScene("Mission02", LoadSceneMode.Single);
         }
         if (currentScene.name == "Mission02")
         {
-            SceneManager.LoadScene("Mission02", LoadSceneMode.Single);
+            SceneManager.LoadScene("Mission03", LoadSceneMode.Single);
         }
         if (currentScene.name == "Mission03")
         {
-            SceneManager.LoadScene("Mission03", LoadSceneMode.Single);
+            SceneManager.LoadScene("Credits", LoadSceneMode.Single);
         }
     }
 }

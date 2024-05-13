@@ -508,8 +508,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278249727
+  m_fontColor: {r: 1, g: 0.91027653, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1079,7 +1079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1295,10 +1295,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Mission Brief: Intel has suggested that the Toon Tyrant is hiding out
-    in cartoonistan vilage, your mission is to search and vilage and check the validity
-    of this intel. You are to eliminate all enemy combatents and clear the village.
-    Good luck'
+  m_text: 'Mission Brief:
+
+    Intel has suggested that the Toon Tyrant is hiding
+    out in cartoonistan vilage, your mission is to search and vilage and check the
+    validity of this intel. You are to eliminate all enemy combatents and clear the
+    village. Good luck'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e9591d1a7286ef4bbf28ca6d3ce1274, type: 2}
   m_sharedMaterial: {fileID: -623557311338323997, guid: 2e9591d1a7286ef4bbf28ca6d3ce1274, type: 2}
@@ -1509,7 +1511,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mission 01 - Cartoonistan Village
+  m_text: Cartoonistan Village - 1300 Hours
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e9591d1a7286ef4bbf28ca6d3ce1274, type: 2}
   m_sharedMaterial: {fileID: -623557311338323997, guid: 2e9591d1a7286ef4bbf28ca6d3ce1274, type: 2}
