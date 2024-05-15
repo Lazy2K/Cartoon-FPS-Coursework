@@ -14,8 +14,9 @@ public class MissionController : MonoBehaviour
 
     public bool gameInPlay;
 
-    private GameObject[] enemies;
+    public bool mission2done;
 
+    private GameObject[] enemies;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,11 @@ public class MissionController : MonoBehaviour
             enemy.GetComponent<GenericEnemyController>().sightRange = levelSpecViewRange;
             enemy.GetComponent<GenericEnemyController>().attackRange = levelSpecAttackRange + Random.Range(0, -levelSpecAttackRangeDiviation);
         }
+
+        if(currentScene.name == "Mission02")
+        {
+            mission2done = false;
+        }
     }
     // Update is called once per frame
     void Update()
@@ -37,6 +43,17 @@ public class MissionController : MonoBehaviour
         if(currentScene.name == "Mission01-02")
         {
             if(mission01objectives())
+            {
+                // Mission complete
+                gameInPlay = false;
+                winScreen.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+        }
+        if (currentScene.name == "Mission02")
+        {
+            if (mission02objectives())
             {
                 // Mission complete
                 gameInPlay = false;
@@ -62,7 +79,7 @@ public class MissionController : MonoBehaviour
 
     private bool mission02objectives()
     {
-        return false;
+        return mission2done;
     }
 
     private bool mission03objectives()
