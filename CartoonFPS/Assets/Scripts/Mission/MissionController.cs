@@ -17,11 +17,13 @@ public class MissionController : MonoBehaviour
     public bool mission2done;
 
     private GameObject[] enemies;
+    private GameObject[] tyrant;
     // Start is called before the first frame update
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        tyrant = GameObject.FindGameObjectsWithTag("Tyrant");
         winScreen = GameObject.Find("WinHUD");
         winScreen.SetActive(false);
         gameInPlay = true;
@@ -62,6 +64,17 @@ public class MissionController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Confined;
             }
         }
+        if (currentScene.name == "Mission03")
+        {
+            if (mission03objectives())
+            {
+                // Mission complete
+                gameInPlay = false;
+                winScreen.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+        }
     }
 
     private bool mission01objectives()
@@ -84,7 +97,15 @@ public class MissionController : MonoBehaviour
 
     private bool mission03objectives()
     {
-        return false;
+        bool anyAlive = false;
+        foreach (GameObject ty in tyrant)
+        {
+            if (ty.GetComponent<ToonTyrant>().isAlive)
+            {
+                anyAlive = true;
+            }
+        }
+        return !anyAlive;
     }
 
     public void restartMission()

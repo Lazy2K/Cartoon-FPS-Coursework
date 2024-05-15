@@ -56,9 +56,14 @@ public class GenericWeapon : MonoBehaviour
             {
                 // Debug.Log(hit.transform.name);
                 GenericEnemyController enemy = hit.transform.GetComponent<GenericEnemyController>();
-                if(enemy != null)
+                ToonTyrant tyrant = hit.transform.GetComponent<ToonTyrant>();
+                if (enemy != null)
                 {
                     enemy.TakeDamge(damage);
+                }
+                if (tyrant != null)
+                {
+                    tyrant.TakeDamage(damage);
                 }
 
                 GameObject impactGameObject = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));

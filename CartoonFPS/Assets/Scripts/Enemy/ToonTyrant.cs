@@ -43,14 +43,30 @@ public class ToonTyrant : MonoBehaviour
 
     void Run()
     {
-        Vector3 dirToPlayer = transfrom.position - player.transfrom.position;
-        Vector3 newPos = transfrom.position + dirToPlayer;
+        Vector3 dirToPlayer = transform.position - player.transform.position;
+        Vector3 newPos = transform.position + dirToPlayer;
         agent.SetDestination(newPos);
+        animator.SetBool("Running", true);
     }
 
     void Die()
     {
         isAlive = false;
         agent.SetDestination(transform.position);
+        // Play death animation
+        animator.SetBool("Running", false);
+        animator.SetTrigger("Dead");
+    }
+
+    public void TakeDamage(float amount)
+    {
+        health = health - amount;
+        if(health <= 0f && isAlive)
+        {
+            Die();
+        } else
+        {
+            // Animate taking damage
+        }
     }
 }
