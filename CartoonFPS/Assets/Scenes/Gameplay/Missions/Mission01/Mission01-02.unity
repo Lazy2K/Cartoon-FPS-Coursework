@@ -448,6 +448,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c3946d2de92784899a7bd8c3740ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelSpecViewRange: 50
+  levelSpecAttackRange: 25
+  levelSpecAttackRangeDiviation: 15
   gameInPlay: 0
 --- !u!4 &45152853
 Transform:

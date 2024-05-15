@@ -124,16 +124,19 @@ public class GenericEnemyController : MonoBehaviour
 
     void Shoot()
     {
+        // Need to find a way to direct this towards the player exactly
         RaycastHit hit;
         Vector3 targetVector = muzzelGameObj.transform.forward;
-        targetVector += transform.up * Random.Range(0.01f, -0.1f);
-        targetVector += transform.right * Random.Range(0.01f, -0.01f);
+        Vector3 newVecotr = (player.transform.position - muzzelGameObj.transform.position);
+        targetVector += transform.up * Random.Range(0.0001f, -0.001f);
+        targetVector += transform.right * Random.Range(0.0001f, -0.0001f);
         if (Time.time > timeDelay)
         {
             // Shoot here
             timeDelay = Time.time + (1 / firePerSecond);
             muzzelFlash.Play();
-            if (Physics.Raycast(muzzelGameObj.transform.position, targetVector, out hit, 500f))
+            Debug.DrawLine(muzzelGameObj.transform.position, newVecotr, Color.red, 500f);
+            if (Physics.Raycast(muzzelGameObj.transform.position, newVecotr, out hit, 500f))
             {
                 Debug.Log(hit.collider.gameObject.name);
                 if(hit.collider.gameObject.name == "Player")

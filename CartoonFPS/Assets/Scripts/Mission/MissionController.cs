@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MissionController : MonoBehaviour
 {
+    public float levelSpecViewRange;
+    public float levelSpecAttackRange;
+    public float levelSpecAttackRangeDiviation;
+
     private Scene currentScene;
     private GameObject winScreen;
 
@@ -20,8 +24,13 @@ public class MissionController : MonoBehaviour
         winScreen = GameObject.Find("WinHUD");
         winScreen.SetActive(false);
         gameInPlay = true;
-    }
 
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<GenericEnemyController>().sightRange = levelSpecViewRange;
+            enemy.GetComponent<GenericEnemyController>().attackRange = levelSpecAttackRange + Random.Range(0, -levelSpecAttackRangeDiviation);
+        }
+    }
     // Update is called once per frame
     void Update()
     {

@@ -129,7 +129,7 @@ public class PlayerInteractions : MonoBehaviour
     public void TakeDamage()
     {
         Debug.Log(health);
-        health -= 100;
+        health -= 25;
         healthText.text = health + "HP";
         audioSource.PlayOneShot(fleshHitSFX, 1f);
         audioSource.PlayOneShot(playerGruntSFX, 1f);
