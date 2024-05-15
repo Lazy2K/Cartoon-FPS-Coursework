@@ -1507,8 +1507,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: 'Mission Brief: Since our intel was wrong last time, you have been tasked
-    to find new intel. There is an emeny device located on this island that will
-    provide co-ordinates to the toon tyrants location. Your job is to find this device.'
+    with meeting a foreign leader of an allied army. The general will meet you on
+    the far side of the island and share the intel with you. You just have to get
+    to him.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e9591d1a7286ef4bbf28ca6d3ce1274, type: 2}
   m_sharedMaterial: {fileID: -623557311338323997, guid: 2e9591d1a7286ef4bbf28ca6d3ce1274, type: 2}

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Staging/Briefing/Brief03.unity
     guid: 84d9b074a1dd479408fb1769febc7ecb
+  - enabled: 1
+    path: Assets/Scenes/Gameplay/Missions/Mission03/Mission03.unity
+    guid: c09550c08963fbb438adc9465ab92b14
   m_configObjects: {}
