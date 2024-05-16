@@ -124,6 +124,7 @@ public class PlayerInteractions : MonoBehaviour
     {
         weapon = weaponHolder.transform.GetChild(0).gameObject;
         weaponScript = weapon.GetComponent<GenericWeapon>();
+        weaponScript.updateBulletText();
     }
 
     public void TakeDamage()

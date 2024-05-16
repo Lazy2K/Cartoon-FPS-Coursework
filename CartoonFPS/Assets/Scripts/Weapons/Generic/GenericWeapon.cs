@@ -82,4 +82,9 @@ public class GenericWeapon : MonoBehaviour
         currentBullets = bulletPerMag;
         bulletText.text = currentBullets + "/" + bulletPerMag;
     }
+
+    public void updateBulletText()
+    {
+        bulletText.text = currentBullets + "/" + bulletPerMag;
+    }
 }
